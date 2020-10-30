@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_101606) do
+ActiveRecord::Schema.define(version: 2020_10_30_120540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "package_authors", force: :cascade do |t|
+    t.bigint "author_id"
+    t.bigint "package_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_package_authors_on_author_id"
+    t.index ["package_id"], name: "index_package_authors_on_package_id"
+  end
+
+  create_table "package_maintainers", force: :cascade do |t|
+    t.bigint "maintainer_id"
+    t.bigint "package_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["maintainer_id"], name: "index_package_maintainers_on_maintainer_id"
+    t.index ["package_id"], name: "index_package_maintainers_on_package_id"
+  end
 
   create_table "packages", force: :cascade do |t|
     t.string "name"
@@ -21,12 +39,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_101606) do
     t.string "date_publication"
     t.string "title"
     t.string "description"
-    t.bigint "author_id", null: false
-    t.bigint "maintainer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["author_id"], name: "index_packages_on_author_id"
-    t.index ["maintainer_id"], name: "index_packages_on_maintainer_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -36,6 +50,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_101606) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "packages", "people", column: "author_id"
-  add_foreign_key "packages", "people", column: "maintainer_id"
+  add_foreign_key "package_authors", "packages"
+  add_foreign_key "package_authors", "people", column: "author_id"
+  add_foreign_key "package_maintainers", "packages"
+  add_foreign_key "package_maintainers", "people", column: "maintainer_id"
 end

@@ -11,8 +11,8 @@ RSpec.describe PackageBuilderService, type: :service do
         end
 
         it "mount correctly package author and maintainer" do
-            expect(package.author.name).to eq("Scott Fortmann-Roe")
-            expect(package.author.email).to eq("scottfr@berkeley.edu")
+            expect(package.authors.size).to eq(1)
+            expect(package.maintainers.size).to eq(1)
         end
     end
 end
