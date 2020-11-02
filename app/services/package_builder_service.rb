@@ -1,5 +1,5 @@
 class PackageBuilderService
-    def self.build(package_hash)
+    def self.build_and_save!(package_hash)
         authors = PersonBuilderService.build(package_hash["Author"])
         maintainers = PersonBuilderService.build(package_hash["Maintainer"])
 
