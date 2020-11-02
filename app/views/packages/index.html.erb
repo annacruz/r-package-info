@@ -1,0 +1,11 @@
+<h1>List of CRAN packages</h1>
+
+<% for package in @package_list %>
+<h3><%= package.name %></h3>
+<b>Version: </b><%= package.version %>
+<b>Title: </b><%= package.title %>
+<b>Description: </b><%= package.description %>
+<b>Author(s): </b><%= package.authors.map {|author| "#{author.name} (#{author.email})"}.join(', ') %>
+<b>Maintainer(s): </b><%= package.maintainers.map {|maintainer| "#{maintainer.name} (#{maintainer.email})"}.join(', ') %>
+<b>Date/Publication: </b><%= package.date_publication %>
+<% end %>
